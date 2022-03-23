@@ -22,6 +22,7 @@ public class DrawingProgram extends JFrame implements MouseMotionListener, Mouse
     public JButton pentagonBtn = new JButton();
     public JButton penBtn = new JButton();
     public JButton resetBtn = new JButton();
+    public JButton setClrBtn = new JButton();
 
     //Button active status
     public boolean activeRectBtn=false, activeCircleBtn=false,
@@ -31,7 +32,7 @@ public class DrawingProgram extends JFrame implements MouseMotionListener, Mouse
         super("Painter");
 
         JPanel toolbar = new JPanel();
-        toolbar.setLayout(new BorderLayout());
+        toolbar.setLayout(new GridLayout(1,2));
 
         JPanel jp = new JPanel();
 
@@ -39,14 +40,15 @@ public class DrawingProgram extends JFrame implements MouseMotionListener, Mouse
         JLabel btnLabel = new JLabel();
         //circleBtn.setPreferredSize(new Dimension(30, 30));
 
-        toolbar.add(btnLabel, BorderLayout.WEST);
-        btnLabel.setLayout(new GridLayout(1,4));
+        toolbar.add(btnLabel);
+        btnLabel.setLayout(new GridLayout(1,7));
         rectBtn.setSize(30,30);
         circleBtn.setSize(30,30);
         triangleBtn.setSize(30,30);
         pentagonBtn.setSize(30,30);
         penBtn.setSize(30,30);
         resetBtn.setSize(30,30);
+        setClrBtn.setSize(30,30);
 
         String[] imageName = {"assets/rectangle.png","assets/circle.png","assets/triangle.png","assets/pentagon.png","assets/pencil.png"};
         Image shapeIcon;
@@ -79,6 +81,7 @@ public class DrawingProgram extends JFrame implements MouseMotionListener, Mouse
         //btnWrapper.add(btnLabel);
         //btnWrapper.setBackground(Color.green);
         toolbar.setSize(500,50);
+        toolbar.setIgnoreRepaint(true);
         btnLabel.setPreferredSize(new Dimension(200, 50));
         btnLabel.setBackground(Color.RED);
         //toolbar.add(btnWrapper);
@@ -89,6 +92,7 @@ public class DrawingProgram extends JFrame implements MouseMotionListener, Mouse
         btnLabel.add(pentagonBtn);
         btnLabel.add(penBtn);
         btnLabel.add(resetBtn);
+        btnLabel.add(setClrBtn);
 
         //toolbar.add(new Label("Drag mouse to draw"));
         toolbar.add(penSize);
