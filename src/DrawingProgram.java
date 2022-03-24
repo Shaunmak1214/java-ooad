@@ -164,6 +164,7 @@ public class DrawingProgram extends JFrame implements MouseMotionListener, Mouse
                 penBtn.setEnabled(false);
                 System.out.println("activePenBtn");
             }else if(me.getSource() == resetBtn){
+                repaint();
                 System.out.println("activeResetBtn");
             }
         }
