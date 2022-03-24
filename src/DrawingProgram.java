@@ -15,6 +15,9 @@ public class DrawingProgram extends JFrame implements MouseMotionListener, Mouse
     public static int pen = 4;
     public int currentX1, currentY1, currentX2, currentY2, clickCount;
 
+    public int [] xPoints = new int[5];
+    public int [] yPoints = new int[5];
+
     //Icon button
     public JButton rectBtn = new JButton();
     public JButton circleBtn = new JButton();
@@ -156,8 +159,14 @@ public class DrawingProgram extends JFrame implements MouseMotionListener, Mouse
     }
 
     public void mouseDragged(MouseEvent me){
+        Graphics g = getGraphics();
         mousePnt = me.getPoint();
-        repaint();
+
+        //repaint();
+        activePen=true;
+        if(activePen){
+            g.fillOval(mousePnt.x,mousePnt.y+30,pen,pen);
+        }
     }
 
     public void mouseClicked(MouseEvent me){
@@ -170,29 +179,30 @@ public class DrawingProgram extends JFrame implements MouseMotionListener, Mouse
     public void mouseEntered(MouseEvent me){ }
     public void mouseExited(MouseEvent me){ }
     public void mousePressed(MouseEvent me){
-        clickCount++;
+
         Graphics g = getGraphics();
 
         if(activeCircleBtn){
+            clickCount++;
             if(clickCount==1){
                 currentX1 = me.getX();
                 currentY1 = me.getY();
                 System.out.println("currentX1: " + currentX1);
                 System.out.println("currentY1: " + currentY1);
-                g.fillOval(currentX1,currentY1,2,2);
+                g.fillOval(currentX1,currentY1+30,2,2);
             }
             else if(clickCount==2){
                 currentX2 = me.getX();
                 currentY2 = me.getY();
                 System.out.println("currentX2: " + currentX2);
                 System.out.println("currentY2: " + currentY2);
-                g.fillOval(currentX2,currentY2,2,2);
+                g.fillOval(currentX2,currentY2+30,2,2);
                 //Graphics g = getGraphics();
                 int circWidth = (int)Math.sqrt(Math.pow(currentX2-currentX1,2)+Math.pow(currentY2-currentY1,2));
                 int r = circWidth/2;
                 System.out.println("circWidth: " + circWidth);
                 int circMidptX = (int)((currentX1+currentX2)/2);
-                int circMidptY = (int)((currentY1+currentY2)/2);
+                int circMidptY = (int)((currentY1+currentY2)/2)+30;
                 System.out.println("circMidptX: " + circMidptX);
                 System.out.println("circMidptY: " + circMidptY);
                 System.out.println("width: " + circWidth);
@@ -200,9 +210,42 @@ public class DrawingProgram extends JFrame implements MouseMotionListener, Mouse
                 clickCount=0;
             }
         }
+        else if(activePentagonBtn){
+
+            currentX1 = me.getX();
+            currentY1 = me.getY()+30;
+
+            xPoints[clickCount] = currentX1;
+            yPoints[clickCount] = currentY1;
+            clickCount++;
+            g.fillOval(currentX1, currentY1, 2, 2);
+
+            if (clickCount > 4) {
+                g.drawPolygon(xPoints, yPoints, 5);
+                clickCount=0;
+            }
+        }
 
     }
-    public void mouseReleased(MouseEvent me){ }
+    public void mouseReleased(MouseEvent me){
+
+//        if(activePentagonBtn) {
+//            Graphics g = getGraphics();
+//            currentX1 = me.getX();
+//            currentY1 = me.getY();
+//
+//            xPoints[clickCount] = currentX1;
+//            yPoints[clickCount] = currentY1;
+//            g.fillOval(currentX1, currentY1, 2, 2);
+//
+//            clickCount++;
+//
+//            if (clickCount > 4) {
+//                System.out.println("Drawing pentagon");
+//                g.drawPolygon(xPoints, yPoints, 5);
+//            }
+//        }
+    }
 
     public void stateChanged(ChangeEvent e){
         JSlider source = (JSlider)e.getSource();
@@ -211,15 +254,17 @@ public class DrawingProgram extends JFrame implements MouseMotionListener, Mouse
         }
     }
 
-    public void paint(Graphics g){
-        g.setColor(penColor);
-        activePen=true;
-        if(activePen){
-            g.fillOval(mousePnt.x,mousePnt.y,pen,pen);
-        }
-
-        //g.drawOval(20,20,100,100);
-    }
+//    public void paint(Graphics g){
+//        super.paint(g);
+//        g.setColor(penColor);
+//        activePen=true;
+//        if(activePen){
+//            g.fillOval(mousePnt.x,mousePnt.y,pen,pen);
+//        }
+//
+//
+//        //g.drawOval(20,20,100,100);
+//    }
 
     public static void main(String[] a){
         new DrawingProgram();
