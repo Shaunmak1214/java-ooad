@@ -29,7 +29,7 @@ public class DrawingProgram extends JFrame implements MouseMotionListener, Mouse
 
     //Button active status
     public boolean activeRectBtn=false, activeCircleBtn=false,
-            activeTriangleBtn=false, activePentagonBtn=false, activePen=false, activeReset=false;
+            activeTriangleBtn=false, activePentagonBtn=false, activePen=false;
 
     public DrawingProgram() {
         super("Painter");
@@ -53,9 +53,9 @@ public class DrawingProgram extends JFrame implements MouseMotionListener, Mouse
         resetBtn.setSize(30,30);
         setClrBtn.setSize(30,30);
 
-        String[] imageName = {"assets/rectangle.png","assets/circle.png","assets/triangle.png","assets/pentagon.png","assets/pencil.png"};
+        String[] imageName = {"assets/rectangle.png","assets/circle.png","assets/triangle.png","assets/pentagon.png","assets/pencil.png","assets/reset.png","assets/setColor.png"};
         Image shapeIcon;
-        for(int i=0; i<5; i++){
+        for(int i=0; i<7; i++){
             try {
                 shapeIcon = ImageIO.read(new File(imageName[i]));
                 Image scaledIcon = shapeIcon.getScaledInstance(30,30,Image.SCALE_SMOOTH);
@@ -74,6 +74,12 @@ public class DrawingProgram extends JFrame implements MouseMotionListener, Mouse
                 else if(i==4){
                     penBtn.setIcon(new ImageIcon(scaledIcon));
                 }
+                else if(i==5){
+                    resetBtn.setIcon(new ImageIcon(scaledIcon));
+                }
+                else if(i==6){
+                    setClrBtn.setIcon(new ImageIcon(scaledIcon));
+                }
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -84,9 +90,9 @@ public class DrawingProgram extends JFrame implements MouseMotionListener, Mouse
         //btnWrapper.add(btnLabel);
         //btnWrapper.setBackground(Color.green);
         toolbar.setSize(500,50);
-        toolbar.setIgnoreRepaint(true);
+        //toolbar.setIgnoreRepaint(true);
         btnLabel.setPreferredSize(new Dimension(200, 50));
-        btnLabel.setBackground(Color.RED);
+        //btnLabel.setBackground(Color.RED);
         //toolbar.add(btnWrapper);
 
         btnLabel.add(rectBtn);
@@ -99,7 +105,7 @@ public class DrawingProgram extends JFrame implements MouseMotionListener, Mouse
 
         //toolbar.add(new Label("Drag mouse to draw"));
         toolbar.add(penSize);
-        toolbar.setBackground(Color.pink);
+        //toolbar.setBackground(Color.pink);
         this.add(toolbar,BorderLayout.SOUTH);
         this.add(jp,BorderLayout.CENTER);
         jp.addMouseMotionListener(this);
@@ -116,41 +122,54 @@ public class DrawingProgram extends JFrame implements MouseMotionListener, Mouse
         pentagonBtn.addActionListener(this::buttonAction);
         penBtn.addActionListener(this::buttonAction);
         resetBtn.addActionListener(this::buttonAction);
+        setClrBtn.addActionListener(this::buttonAction);
+
     }
 
     public void buttonAction(ActionEvent me){
 
-        activeRectBtn = false;
-        activeCircleBtn = false;
-        activeTriangleBtn = false;
-        activeTriangleBtn = false;
-        activePentagonBtn = false;
-        activePen = false;
-        activeReset = false;
 
-        if(me.getSource() == rectBtn){
-            activeRectBtn = true;
-            System.out.println("activeRectBtn");
+        if(me.getSource() != setClrBtn) {
+            activeRectBtn = false;
+            activeCircleBtn = false;
+            activeTriangleBtn = false;
+            activeTriangleBtn = false;
+            activePentagonBtn = false;
+            activePen = false;
+
+            rectBtn.setEnabled(true);
+            circleBtn.setEnabled(true);
+            triangleBtn.setEnabled(true);
+            pentagonBtn.setEnabled(true);
+            penBtn.setEnabled(true);
+
+            if (me.getSource() == rectBtn) {
+                activeRectBtn = true;
+                rectBtn.setEnabled(false);
+                System.out.println("activeRectBtn");
+            } else if (me.getSource() == circleBtn) {
+                activeCircleBtn = true;
+                circleBtn.setEnabled(false);
+                System.out.println("activeCircleBtn");
+            } else if (me.getSource() == triangleBtn) {
+                activeTriangleBtn = true;
+                triangleBtn.setEnabled(false);
+                System.out.println("activeTriangleBtn");
+            } else if (me.getSource() == pentagonBtn) {
+                activePentagonBtn = true;
+                pentagonBtn.setEnabled(false);
+                System.out.println("activePentagonBtn");
+            } else if (me.getSource() == penBtn) {
+                activePen = true;
+                penBtn.setEnabled(false);
+                System.out.println("activePenBtn");
+            }else if(me.getSource() == resetBtn){
+                System.out.println("activeResetBtn");
+            }
         }
-        else if(me.getSource() == circleBtn){
-            activeCircleBtn = true;
-            System.out.println("activeCircleBtn");
-        }
-        else if(me.getSource() == triangleBtn){
-            activeTriangleBtn = true;
-            System.out.println("activeTriangleBtn");
-        }
-        else if(me.getSource() == pentagonBtn){
-            activePentagonBtn = true;
-            System.out.println("activePentagonBtn");
-        }
-        else if(me.getSource() == penBtn){
-            activePen = true;
-            System.out.println("activePenBtn");
-        }
-        else if(me.getSource() == resetBtn){
-            activeReset = true;
-            System.out.println("activeResetBtn");
+        else if(me.getSource() == setClrBtn){
+            penColor = JColorChooser.showDialog(null, "Change pen colour", penColor);
+            System.out.println("activeClrBtn");
         }
     }
 
@@ -161,9 +180,9 @@ public class DrawingProgram extends JFrame implements MouseMotionListener, Mouse
     public void mouseDragged(MouseEvent me){
         Graphics g = getGraphics();
         mousePnt = me.getPoint();
+        g.setColor(penColor);
 
         //repaint();
-        activePen=true;
         if(activePen){
             g.fillOval(mousePnt.x,mousePnt.y+30,pen,pen);
         }
@@ -189,6 +208,7 @@ public class DrawingProgram extends JFrame implements MouseMotionListener, Mouse
                 currentY1 = me.getY();
                 System.out.println("currentX1: " + currentX1);
                 System.out.println("currentY1: " + currentY1);
+                g.setColor(penColor);
                 g.fillOval(currentX1,currentY1+30,2,2);
             }
             else if(clickCount==2){
@@ -196,6 +216,7 @@ public class DrawingProgram extends JFrame implements MouseMotionListener, Mouse
                 currentY2 = me.getY();
                 System.out.println("currentX2: " + currentX2);
                 System.out.println("currentY2: " + currentY2);
+                g.setColor(penColor);
                 g.fillOval(currentX2,currentY2+30,2,2);
                 //Graphics g = getGraphics();
                 int circWidth = (int)Math.sqrt(Math.pow(currentX2-currentX1,2)+Math.pow(currentY2-currentY1,2));
@@ -218,6 +239,7 @@ public class DrawingProgram extends JFrame implements MouseMotionListener, Mouse
             xPoints[clickCount] = currentX1;
             yPoints[clickCount] = currentY1;
             clickCount++;
+            g.setColor(penColor);
             g.fillOval(currentX1, currentY1, 2, 2);
 
             if (clickCount > 4) {
