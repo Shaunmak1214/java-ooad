@@ -81,7 +81,7 @@ public class DrawPentagon extends JFrame implements MouseMotionListener, MouseLi
       
       xPoints[clickCount] = currentX;
       yPoints[clickCount] = currentY;
-      g.fillOval(currentX,currentY,2,2);
+      g.fillOval(currentX,currentY,10,10);
 
       clickCount++;
 
