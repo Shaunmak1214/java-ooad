@@ -27,6 +27,8 @@ public class DrawingProgram extends JFrame implements MouseMotionListener, Mouse
     public JButton resetBtn = new JButton();
     public JButton setClrBtn = new JButton();
 
+    
+
     //Button active status
     public boolean activeRectBtn=false, activeCircleBtn=false,
             activeTriangleBtn=false, activePentagonBtn=false, activePen=false;
@@ -103,6 +105,7 @@ public class DrawingProgram extends JFrame implements MouseMotionListener, Mouse
         btnLabel.add(resetBtn);
         btnLabel.add(setClrBtn);
 
+        btnLabel.setOpaque(true);
         //toolbar.add(new Label("Drag mouse to draw"));
         toolbar.add(penSize);
         //toolbar.setBackground(Color.pink);
@@ -179,13 +182,17 @@ public class DrawingProgram extends JFrame implements MouseMotionListener, Mouse
     }
 
     public void mouseDragged(MouseEvent me){
+      if(me.getPoint().y > 515) {
+        return ;
+      }
         Graphics g = getGraphics();
         mousePnt = me.getPoint();
         g.setColor(penColor);
 
-        //repaint();
+        // repaint();
         if(activePen){
             g.fillOval(mousePnt.x,mousePnt.y+30,pen,pen);
+            // repaint();
         }
     }
 
