@@ -209,7 +209,57 @@ public class DrawingProgram extends JFrame implements MouseMotionListener, Mouse
 
         Graphics g = getGraphics();
 
-        if(activeCircleBtn){
+        if (activeRectBtn) {
+            clickCount++;
+            if(clickCount == 1){
+                currentX1 = me.getX();
+                currentY1 = me.getY();
+                System.out.println("currentX1: " + currentX1);
+                System.out.println("currentY1: " + currentY1);
+                g.setColor(penColor);
+                g.fillOval(currentX1,currentY1+30,2,2);
+            }
+            else if(clickCount==2){
+                currentX2 = me.getX();
+                currentY2 = me.getY();
+                System.out.println("currentX2: " + currentX2);
+                System.out.println("currentY2: " + currentY2);
+                g.setColor(penColor);
+                g.fillOval(currentX2,currentY2+30,2,2);
+                //Graphics g = getGraphics();
+                if(currentX1 < currentX2 && currentY1 < currentY2) {
+                    System.out.println("\nMETHOD 1\n");
+                    g.drawRect(currentX1, currentY1, currentX2 - currentX1, currentY2 - currentY1);
+                }
+
+                else if(currentX1 > currentX2 && currentY1 > currentY2) {
+                    System.out.println("\nMETHOD 2\n");
+                    g.drawRect(currentX2, currentY2, currentX1 - currentX2, currentY1 - currentY2);
+                }
+
+                else if(currentX1 < currentX2 && currentY1 > currentY2) {
+                    System.out.println("\nMETHOD 3\n");
+                    g.drawRect(currentX1, currentY2, currentX2 - currentX1, currentY1 - currentY2);
+                }
+
+                else if(currentX1 > currentX2 && currentY1 < currentY2) {
+                    System.out.println("\nMETHOD 4\n");
+                    g.drawRect(currentX2, currentY1, currentX1 - currentX2, currentY2 - currentY1);
+                }
+
+                else if(currentX1 == currentX2) {
+                    System.out.println("Error : The X dimensions of both points are parallel, please try again");
+                }
+
+                else if(currentY1 == currentY2) {
+                    System.out.println("Error : The Y dimensions of both points are parallel, please try again");
+                }
+                
+                clickCount=0;
+            }
+        }
+        
+        else if(activeCircleBtn){
             clickCount++;
             if(clickCount==1){
                 currentX1 = me.getX();
@@ -239,6 +289,23 @@ public class DrawingProgram extends JFrame implements MouseMotionListener, Mouse
                 clickCount=0;
             }
         }
+
+        else if(activeTriangleBtn) {
+            currentX1 = me.getX();
+            currentY1 = me.getY()+30;
+
+            xPoints[clickCount] = currentX1;
+            yPoints[clickCount] = currentY1;
+            clickCount++;
+            g.setColor(penColor);
+            g.fillOval(currentX1, currentY1, 2, 2);
+
+            if (clickCount == 3) {
+                g.drawPolygon(xPoints, yPoints, 3);
+                clickCount = 0;
+            }
+        }
+
         else if(activePentagonBtn){
 
             currentX1 = me.getX();
