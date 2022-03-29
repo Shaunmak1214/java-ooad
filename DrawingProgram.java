@@ -45,10 +45,11 @@ public class DrawingProgram extends JFrame implements MouseMotionListener, Mouse
         
         Label dragMouseLabel = new Label("Drag mouse to draw"); //
         dragMouseLabel.setFont(new Font("Calibri", Font.BOLD, 15)); //
-        toolbar.add(dragMouseLabel); //
+        //toolbar.add(dragMouseLabel); //
         
         JLabel btnLabel = new JLabel();
         toolbar.add(btnLabel);
+        toolbar.add(dragMouseLabel); //
         btnLabel.setLayout(new GridLayout(1,7));
 
         rectBtn             = ConstructGui.createButton("assets/rectangle.png");
@@ -90,6 +91,7 @@ public class DrawingProgram extends JFrame implements MouseMotionListener, Mouse
         jp.setBackground(Color.WHITE);
         setResizable(false); //
         setSize(1500,800);
+        //setSize(1000,600);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 

@@ -27,16 +27,28 @@ public class DrawCircle {
     public void drawShape(Graphics g) {
         g.fillOval(xPoints[1],yPoints[1],2,2);
 
-        int circWidth = (int)Math.sqrt(Math.pow(xPoints[1]-xPoints[0],2)+Math.pow(yPoints[1]-yPoints[0],2));
-        int r = circWidth/2;
-        System.out.println("circWidth: " + circWidth);
-        int circMidptX = (int)((xPoints[0]+xPoints[1])/2);
-        int circMidptY = (int)((yPoints[0]+yPoints[1])/2)+30;
-        System.out.println("circMidptX: " + circMidptX);
-        System.out.println("circMidptY: " + circMidptY);
-        System.out.println("width: " + circWidth);
-        g.drawOval(circMidptX-r,circMidptY-r, circWidth, circWidth);
-        
-        clickCount = 0;
+        if(xPoints[0] == xPoints[1]) {
+            ConstructGui.createPopUp("ErrorForXPlane");
+        }
+
+        else if(yPoints[0] == yPoints[1]) {
+            ConstructGui.createPopUp("ErrorForYPlane");
+        }
+
+        else {
+            int circWidth = (int)Math.sqrt(Math.pow(xPoints[1]-xPoints[0],2)+Math.pow(yPoints[1]-yPoints[0],2));
+            int r = circWidth/2;
+            int circMidptX = (int)((xPoints[0]+xPoints[1])/2);
+            int circMidptY = (int)((yPoints[0]+yPoints[1])/2)+30;
+
+            System.out.println("circWidth: " + circWidth);
+            System.out.println("circMidptX: " + circMidptX);
+            System.out.println("circMidptY: " + circMidptY);
+            System.out.println("width: " + circWidth);
+            
+            g.drawOval(circMidptX-r,circMidptY-r, circWidth, circWidth);
+            
+            clickCount = 0;
+        }
     }
 }

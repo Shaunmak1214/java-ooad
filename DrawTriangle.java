@@ -96,6 +96,14 @@ public class DrawTriangle {
             yPoints[2] = storeY1;
         }
 
+        else if(xPoints[0] == xPoints[1]) {
+            ConstructGui.createPopUp("ErrorForXPlane");
+        }
+
+        else if(yPoints[0] == yPoints[1]) {
+            ConstructGui.createPopUp("ErrorForYPlane");
+        }
+
         g.drawPolygon(xPoints, yPoints, 3);
         clickCount = 0;
     }
