@@ -41,4 +41,9 @@ public class DrawCircle implements DrawShape {
         
         clickCount = 0;
     }
+
+    @Override
+    public void drawMultiplePntShape(Graphics g) {
+        // Not needed for DrawCircle
+    }
 }

@@ -7,7 +7,7 @@ import java.awt.Graphics;
 public class DrawingProgram extends JFrame implements MouseMotionListener, MouseListener, ChangeListener {
     private Point mousePnt = new Point();
     public static Color penColor = new Color(0,0,0);
-    final Color eraserColor = new Color(255, 255, 255);
+    final private Color eraserColor = new Color(255, 255, 255);
     private JSlider penSize = new JSlider(JSlider.HORIZONTAL,1,30,4);
     public static int pen = 4;
     public int currentX1, currentY1, currentX2, currentY2, clickCount;
@@ -241,9 +241,9 @@ public class DrawingProgram extends JFrame implements MouseMotionListener, Mouse
 
     public void mouseReleased(MouseEvent me) {}
 
-    public void stateChanged(ChangeEvent e) {
+    public void stateChanged(ChangeEvent me) {
 
-        JSlider source = (JSlider)e.getSource();
+        JSlider source = (JSlider)me.getSource();
         if (!source.getValueIsAdjusting()) {
             pen = (int)source.getValue();
         }
