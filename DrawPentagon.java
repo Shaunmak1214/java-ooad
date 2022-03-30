@@ -1,6 +1,6 @@
 import java.awt.Graphics;
 
-public class DrawPentagon {
+public class DrawPentagon implements DrawShape {
 
     public static int clickCount = 0;
     public static int xPoints[] = new int[5];
@@ -23,13 +23,7 @@ public class DrawPentagon {
                 drawPoint(g);
             }
             else if(clickCount == 4) {
-                if(activeClick2Pnt) {
-                    draw2PntShape(g);
-                }
-    
-                else if(activeClickMultiple) {
-                    drawMultiplePntShape(g);
-                }
+                drawMultiplePntShape(g);
             }
         }
     }
@@ -60,6 +54,8 @@ public class DrawPentagon {
             yPoints[2] = ((storeY1 - storeY0) * 38 / 100) + storeY0;
             yPoints[3] = storeY1;
             yPoints[4] = storeY1;
+
+            g.drawPolygon(xPoints, yPoints, 5);
         }
 
         else if(xPoints[0] > xPoints[1] && yPoints[0] > yPoints[1]) {
@@ -75,7 +71,9 @@ public class DrawPentagon {
             yPoints[1] = storeY1;
             yPoints[2] = ((storeY0 - storeY1) * 38 / 100) + storeY1;
             yPoints[3] = storeY0;
-            yPoints[4] = storeY0;       
+            yPoints[4] = storeY0;
+
+            g.drawPolygon(xPoints, yPoints, 5);       
         }
 
         else if(xPoints[0] < xPoints[1] && yPoints[0] > yPoints[1]) {
@@ -92,6 +90,8 @@ public class DrawPentagon {
             yPoints[2] = ((storeY0 - storeY1) * 38 / 100) + storeY1;
             yPoints[3] = storeY0;
             yPoints[4] = storeY0;
+
+            g.drawPolygon(xPoints, yPoints, 5);
         }
 
         else if(xPoints[0] > xPoints[1] && yPoints[0] < yPoints[1]) {
@@ -108,6 +108,8 @@ public class DrawPentagon {
             yPoints[2] = ((storeY1 - storeY0) * 38 / 100) + storeY0;
             yPoints[3] = storeY1;
             yPoints[4] = storeY1;
+            
+            g.drawPolygon(xPoints, yPoints, 5);
         }
 
         else if(xPoints[0] == xPoints[1]) {
@@ -118,7 +120,6 @@ public class DrawPentagon {
             ConstructGui.createPopUp("ErrorForYPlane");
         }
 
-        g.drawPolygon(xPoints, yPoints, 5);
         clickCount = 0;
     }
 

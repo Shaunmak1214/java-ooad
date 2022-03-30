@@ -2,11 +2,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
-import javax.imageio.ImageIO;
-import java.io.IOException;
-import java.io.File;
 import java.awt.Graphics;
-import java.lang.Math;
 
 public class DrawingProgram extends JFrame implements MouseMotionListener, MouseListener, ChangeListener {
     private Point mousePnt = new Point();
@@ -201,12 +197,7 @@ public class DrawingProgram extends JFrame implements MouseMotionListener, Mouse
 
         if (me.getPoint().y > 705) {
             return;
-          }
-        /*
-        if (me.getPoint().y > 510) {
-            return;
         }
-      */
 
         Graphics g = getGraphics();
         mousePnt = me.getPoint();

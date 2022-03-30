@@ -1,6 +1,6 @@
 import java.awt.Graphics;
 
-public class DrawTriangle {
+public class DrawTriangle implements DrawShape {
 
     public static int clickCount = 0;
     public static int xPoints[] = new int[3];
@@ -58,6 +58,7 @@ public class DrawTriangle {
             yPoints[0] = storeY1;
             yPoints[1] = storeY0;
             yPoints[2] = storeY1;
+            g.drawPolygon(xPoints, yPoints, 3);
         }
 
         else if(xPoints[0] > xPoints[1] && yPoints[0] > yPoints[1]) {
@@ -70,6 +71,7 @@ public class DrawTriangle {
             yPoints[0] = storeY0;
             yPoints[1] = storeY1;
             yPoints[2] = storeY0;
+            g.drawPolygon(xPoints, yPoints, 3);
         }
 
         else if(xPoints[0] < xPoints[1] && yPoints[0] > yPoints[1]) {
@@ -82,6 +84,7 @@ public class DrawTriangle {
             yPoints[0] = storeY0;
             yPoints[1] = storeY1;
             yPoints[2] = storeY0;
+            g.drawPolygon(xPoints, yPoints, 3);
         }
 
         else if(xPoints[0] > xPoints[1] && yPoints[0] < yPoints[1]) {
@@ -94,6 +97,7 @@ public class DrawTriangle {
             yPoints[0] = storeY1;
             yPoints[1] = storeY0;
             yPoints[2] = storeY1;
+            g.drawPolygon(xPoints, yPoints, 3);
         }
 
         else if(xPoints[0] == xPoints[1]) {
@@ -104,7 +108,6 @@ public class DrawTriangle {
             ConstructGui.createPopUp("ErrorForYPlane");
         }
 
-        g.drawPolygon(xPoints, yPoints, 3);
         clickCount = 0;
     }
 

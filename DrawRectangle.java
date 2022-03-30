@@ -1,6 +1,6 @@
 import java.awt.Graphics;
 
-public class DrawRectangle {
+public class DrawRectangle implements DrawShape {
 
     public static int clickCount = 0;
     public static int xPoints[] = new int[4];
