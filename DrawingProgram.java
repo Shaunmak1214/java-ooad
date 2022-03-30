@@ -201,12 +201,7 @@ public class DrawingProgram extends JFrame implements MouseMotionListener, Mouse
 
         if (me.getPoint().y > 705) {
             return;
-          }
-        /*
-        if (me.getPoint().y > 510) {
-            return;
         }
-      */
 
         Graphics g = getGraphics();
         mousePnt = me.getPoint();
